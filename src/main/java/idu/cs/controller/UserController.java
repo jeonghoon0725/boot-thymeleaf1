@@ -83,6 +83,28 @@ public class UserController {
 		model.addAttribute("user", user);
 		return "redirect:/users"; //get 방식으로 해당 url에 redirect
 	}
+	@GetMapping("/user-update-form")		//회원 수정 폼으로 이동
+	public String getUserById(Model model, HttpSession session) {
+		// 서비스를 통해 리파지터리로 부터 정보를 가져와야 하나 세션에 저장해두었으므로 정보를 활용
+		User user = (User) session.getAttribute("user");	//형변환 중요
+		/*
+		User sessionUser = userService.getUserById(user.getId());
+		model.addAttribute("user", sessionUser);
+		*/
+		model.addAttribute("user", user);
+		return "info";
+	}
+	@PutMapping("/users/{id}") //@PatchMapping 수정한 부분만 업데이트시킬 수 있는 매핑
+	public String updateUser(@PathVariable(value = "id") Long id, @Valid User user, Model model, HttpSession session) {
+		/*
+		 * updateUser 객체는 입력 폼 내용 : id 값이 없음, 
+		 */
+		user.setId(userService.getUserById(id).getId());
+		userService.updateUser(user);
+		session.setAttribute("user", user); //두 곳 중 한 곳에만 써주면 됨(위에나 여기)
+		return "redirect:/users"; //redirect는 페이지를 바꾼다.  users로 가겠다
+	}
+	
 	/*
 	@PostMapping("/users")					//회원 등록
 	public String createUser(@Valid UserEntity user, Model model) {

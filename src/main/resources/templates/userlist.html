@@ -43,9 +43,7 @@
 						<div th:each="user : ${users}">
 						<div class="table-row">
 							<div class="serial">01</div>
-							<div class="country"> 
-									<a th:href = "@{'/users/{id}'(id=${user.id})}">
-										<span th:text="${user.id}"></span></a></div>
+							<div class="country"><span th:text="${user.id}"></span></div>
 							<div class="visit"><span th:text="${user.name}"></span></div>
 							<div class="percentage"><span th:text="${user.company}"></span></div>
 						</div>
