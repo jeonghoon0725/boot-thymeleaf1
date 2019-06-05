@@ -27,7 +27,6 @@ public class UserServicelmpl implements UserService {
 		User user = entity.buildDomain();
 		return user;
 	}
-	
 
 	@Override
 	public User getUserByUserId(String userId) {
